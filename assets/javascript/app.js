@@ -158,3 +158,39 @@ function timerHolder() {
     }
 
 }
+
+function rightAnswer() {
+    correctCounter++;
+    $('.time').html(timer);
+    $('.right').html('<p>Right answers: ' + correctCounter + '</p><br>');
+    setTimeout(questionCounter, 2000);
+}
+
+function wrongAnswer() {
+    incorrectCounter++;
+    $('.time').html(timer);
+    $('.wrong').html('<p>Wrong answers: ' + incorrectCounter + '</p>');
+    setTimeout(questionCounter, 2000);
+}
+
+function unanswered() {
+    unanswered++;
+    $('.main').append("<p class='times-up'>Time's up!</p>");
+    $('.right-answer').css('background-color', 'green');
+    $('.times-up')
+        .delay(2000)
+        .fadeOut(400);
+    setTimeout(questionCounter, 2000);
+}
+
+
+function questionCounter() {
+    if (counter < 7) {
+        counter++;
+        startGame();
+        timer = 30;
+        timerHolder();
+    } else {
+        finishGame();
+    }
+}
