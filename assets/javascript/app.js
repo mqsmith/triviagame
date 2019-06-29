@@ -92,3 +92,46 @@ $(document).ready(function () {
     });
 
 });
+
+// Start the game
+function startGame() {
+
+    $('.start-page').css('display', 'none');
+    $('.questions-page').css('visibility', 'visible');
+    $('.answers').css('visibility', 'visible');
+    $('.final').css('display', 'none');
+    $('.timer').html('<p>Time remaining: <span class="time">30</span></p>');
+
+    $('.question').html(questions[counter].question);
+    var showingAnswers =
+        '<p class="answer first-answer">' +
+        questions[counter].answers[0].answer +
+        '</p><p class="answer">' +
+        questions[counter].answers[1].answer +
+        '</p><p class="answer">' +
+        questions[counter].answers[2].answer +
+        '</p><p class="answer">' +
+        questions[counter].answers[3].answer +
+        '</p>';
+
+    $('.answers').html(showingAnswers);
+
+    timerHolder();
+    console.log("Game has Started!");
+}
+// Timer function
+function timerHolder() {
+    console.log("timerHolder");
+    clearInterval(clock);
+    clock = setInterval(seconds, 1000);
+    function seconds() {
+        if (timer === 0) {
+            clearInterval(clock);
+            unanswered();
+        } else if (timer > 0) {
+            timer--;
+        }
+        $('.time').html(timer);
+    }
+
+}
