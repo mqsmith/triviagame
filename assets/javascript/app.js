@@ -147,7 +147,8 @@ function unanswered() {
 
 // Start the game
 function startGame() {
-
+    var audio = $("#mysoundclip")[0];
+      audio.play();
     $('.start-page').css('display', 'none');
     $('.questions-page').css('visibility', 'visible');
     $('.answers').css('visibility', 'visible');
