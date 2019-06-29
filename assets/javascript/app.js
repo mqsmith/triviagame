@@ -93,6 +93,29 @@ $(document).ready(function () {
 
 });
 
+// Choose and check answer
+$('.main').on('click', '.answer', function () {
+    chosenAnswer = $(this).text();
+    console.log(this);
+    var answerCounter = questions[counter].answers;
+    console.log(answerCounter);
+
+    var answer = $('.answer');
+    for (var i = 0; i < answerCounter.length; i++) {
+        if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === true) {
+            clearInterval(clock);
+            var right = $(this).attr('class', 'right-answer answer');
+            rightAnswer();
+        } else if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === false) {
+            clearInterval(clock);
+            $(this).attr('class', 'wrong-answer answer');
+            $(answerCounter[i].value === true).css('background-color', 'green');
+            $(answerCounter[i].value === true).css('color', 'white');
+            wrongAnswer();
+        }
+    }
+});
+
 // Start the game
 function startGame() {
 
