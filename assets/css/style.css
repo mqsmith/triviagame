@@ -15,7 +15,7 @@ body {
   }
   
   .img-initial {
-    background: url('../images/trivia-game.png') no-repeat center top;
+    /* background: url('../images/trivia-game.png') no-repeat center top; */
     background-size: 70%;
     height: 520px;
   }
