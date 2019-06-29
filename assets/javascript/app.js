@@ -90,31 +90,37 @@ $(document).ready(function () {
         console.log("You clicked start!");
         startGame();
     });
-
-});
-
+    $('body').on('click', '.reset-button', function () {
+        
+        resetGame();
+    });
+    
 // Choose and check answer
-$('.main').on('click', '.answer', function () {
-    chosenAnswer = $(this).text();
-    console.log(this);
-    var answerCounter = questions[counter].answers;
-    console.log(answerCounter);
-
-    var answer = $('.answer');
-    for (var i = 0; i < answerCounter.length; i++) {
-        if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === true) {
-            clearInterval(clock);
-            var right = $(this).attr('class', 'right-answer answer');
-            rightAnswer();
-        } else if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === false) {
-            clearInterval(clock);
-            $(this).attr('class', 'wrong-answer answer');
-            $(answerCounter[i].value === true).css('background-color', 'green');
-            $(answerCounter[i].value === true).css('color', 'white');
-            wrongAnswer();
+    $('.main').on('click', '.answer', function () {
+        chosenAnswer = $(this).text();
+        console.log(this);
+        var answerCounter = questions[counter].answers;
+        console.log(answerCounter);
+    
+        var answer = $('.answer');
+        for (var i = 0; i < answerCounter.length; i++) {
+            if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === true) {
+                clearInterval(clock);
+                var right = $(this).attr('class', 'right-answer answer');
+                rightAnswer();
+            } else if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === false) {
+                clearInterval(clock);
+                $(this).attr('class', 'wrong-answer answer');
+                $(answerCounter[i].value === true).css('background-color', 'green');
+                $(answerCounter[i].value === true).css('color', 'white');
+                wrongAnswer();
+            }
         }
-    }
+    });
 });
+
+
+
 
 // Start the game
 function startGame() {
@@ -193,4 +199,41 @@ function questionCounter() {
     } else {
         finishGame();
     }
+}
+
+
+
+
+
+
+// Finishing the game
+function finishGame() {
+$('.start-page').css('display', 'none');
+$('.questions-page').css('visibility', 'hidden');
+$('.answers').css('visibility', 'hidden');
+$('.final').css('visibility', 'visible');
+$('.final').css('display', 'block');
+var final = $('.final')
+    .html("<p>All done, here's how you did!<p><br><br>")
+    .append('<p>Correct Answers: ' + correctCounter + '</p><br>')
+    .append('<p>Wrong Answers: ' + incorrectCounter + '</p>');
+$(final).attr('<div>');
+$(final).attr('class', 'final');
+$('.final').append('<p><a class="btn btn-primary btn-lg reset-button" href="#">Restart the game!</a></p>');
+
+}
+
+// Reset the game
+function resetGame() {
+console.log("You reset the game");
+
+
+
+counter = 0;
+correctCounter = 0;
+incorrectCounter = 0;
+unansweredCounter = 0;
+timer = 30;
+startGame();
+timerHolder();
 }
