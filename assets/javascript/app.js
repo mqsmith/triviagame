@@ -130,12 +130,13 @@ function rightAnswer() {
 function wrongAnswer() {
     incorrectCounter++;
     $('.time').html(timer);
-    $('.wrong').html('<p>Wrong answers: ' + incorrectCounter + '</p>');
+    $('.wrong').html('<p>Wrong answers: ' + incorrectCounter + '</p><br>');
     setTimeout(questionCounter, 2000);
 }
 
 function unanswered() {
-    unanswered++;
+    unansweredCounter++;
+    $('.unanswered').html('<p>Unanswered questions: ' + unansweredCounter + '</p>');
     $('.main').append("<p class='times-up'>Time's up!</p>");
     $('.right-answer').css('background-color', 'green');
     $('.times-up')
@@ -209,7 +210,8 @@ function finishGame() {
     var final = $('.final')
         .html("<p>All done, here's how you did!<p><br><br>")
         .append('<p>Correct Answers: ' + correctCounter + '</p><br>')
-        .append('<p>Wrong Answers: ' + incorrectCounter + '</p>');
+        .append('<p>Wrong Answers: ' + incorrectCounter + '</p><br>')
+        .append('<p>Unanswered questions: ' + unansweredCounter + '</p>');
     $(final).attr('<div>');
     $(final).attr('class', 'final');
     $('.final').append('<p><a class="btn btn-primary btn-lg reset-button" href="#">Restart the game!</a></p>');
@@ -219,14 +221,14 @@ function finishGame() {
 // Reset the game
 function resetGame() {
     console.log("You reset the game");
-
-   
-    
     counter = 0;
     correctCounter = 0;
     incorrectCounter = 0;
     unansweredCounter = 0;
     timer = 30;
+    $('.right').html('<p>Right answers: ' + correctCounter + '</p><br>');
+    $('.wrong').html('<p>Wrong answers: ' + incorrectCounter + '</p><br>');
+    $('.unanswered').html('<p>Unanswered questions: ' + unansweredCounter + '</p>');
     startGame();
     timerHolder();
 }
