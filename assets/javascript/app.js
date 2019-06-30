@@ -93,15 +93,8 @@ $(document).ready(function () {
 
     $('.main').on('click', '.answer', function () {
         chosenAnswer = $(this).text();
-        // $(this).siblings().css({"background-color": "green"});
         console.log(this);
         var answerCounter = questions[counter].answers;
-        // for (var i = 0; i < answerCounter.length; i++){
-        //     if (answerCounter[i].answer && answerCounter[i].value === true) {
-        //         var correct = answerCounter[i];
-        //     }
-        // } 
-        
         console.log(answerCounter);
 
         // var answer = $('.answer');
@@ -113,14 +106,13 @@ $(document).ready(function () {
             } else if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === false) {
                 clearInterval(clock);
                 $(this).attr('class', 'wrong-answer answer');
-               $("#correct").attr('class', 'right-answer answer');
+                $("#correct").attr('class', 'right-answer answer');
                 wrongAnswer();
             }
         }
     });
 
     $('body').on('click', '.reset-button', function () {
-        
         resetGame();
     });
 
@@ -130,6 +122,10 @@ function rightAnswer() {
     correctCounter++;
     $('.time').html(timer);
     $('.right').html('<p>Right answers: ' + correctCounter + '</p><br>');
+    $('.main').append("<p class='times-up'>Great Job! That's correct!</p>");
+    $('.times-up')
+        .delay(2000)
+        .fadeOut(400);
     setTimeout(questionCounter, 2000);
 }
 
@@ -137,6 +133,10 @@ function wrongAnswer() {
     incorrectCounter++;
     $('.time').html(timer);
     $('.wrong').html('<p>Wrong answers: ' + incorrectCounter + '</p><br>');
+    $('.main').append("<p class='times-up'>Oh man, so close!</p>");
+    $('.times-up')
+        .delay(2000)
+        .fadeOut(400);
     setTimeout(questionCounter, 2000);
 }
 
@@ -154,7 +154,7 @@ function unanswered() {
 // Start the game
 function startGame() {
     var audio = $("#mysoundclip")[0];
-      audio.play();
+    audio.play();
     $('.start-page').css('display', 'none');
     $('.questions-page').css('visibility', 'visible');
     $('.answers').css('visibility', 'visible');
@@ -164,17 +164,17 @@ function startGame() {
     $('.question').html(questions[counter].question);
     var showingAnswers = $("<div class= row>");
 
-    for(var i = 0; i < 4; i++){
+    for (var i = 0; i < 4; i++) {
         console.log(questions[counter].answers[i]);
-        if(questions[counter].answers[i].value){
+        if (questions[counter].answers[i].value) {
             showingAnswers.append("<p class='answer' id='correct'>" + questions[counter].answers[i].answer +
-            "</p>");
-        }else{
+                "</p>");
+        } else {
             showingAnswers.append("<p class='answer'>" + questions[counter].answers[i].answer +
-            "</p>");
+                "</p>");
         }
     }
-   
+
     $('.answers').html(showingAnswers);
 
     timerHolder();
