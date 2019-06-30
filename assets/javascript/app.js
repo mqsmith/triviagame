@@ -93,21 +93,27 @@ $(document).ready(function () {
 
     $('.main').on('click', '.answer', function () {
         chosenAnswer = $(this).text();
+        // $(this).siblings().css({"background-color": "green"});
         console.log(this);
         var answerCounter = questions[counter].answers;
+        // for (var i = 0; i < answerCounter.length; i++){
+        //     if (answerCounter[i].answer && answerCounter[i].value === true) {
+        //         var correct = answerCounter[i];
+        //     }
+        // } 
+        
         console.log(answerCounter);
 
-        var answer = $('.answer');
+        // var answer = $('.answer');
         for (var i = 0; i < answerCounter.length; i++) {
             if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === true) {
                 clearInterval(clock);
-                var right = $(this).attr('class', 'right-answer answer');
+                $(this).attr('class', 'right-answer answer');
                 rightAnswer();
             } else if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === false) {
                 clearInterval(clock);
                 $(this).attr('class', 'wrong-answer answer');
-                $(answerCounter[i].value === true).css('background-color', 'green');
-                $(answerCounter[i].value === true).css('color', 'white');
+               $("#correct").attr('class', 'right-answer answer');
                 wrongAnswer();
             }
         }
@@ -156,17 +162,19 @@ function startGame() {
     $('.timer').html('<p>Time remaining: <span class="time">30</span></p>');
 
     $('.question').html(questions[counter].question);
-    var showingAnswers =
-        '<p class="answer first-answer">' +
-        questions[counter].answers[0].answer +
-        '</p><p class="answer">' +
-        questions[counter].answers[1].answer +
-        '</p><p class="answer">' +
-        questions[counter].answers[2].answer +
-        '</p><p class="answer">' +
-        questions[counter].answers[3].answer +
-        '</p>';
+    var showingAnswers = $("<div class= row>");
 
+    for(var i = 0; i < 4; i++){
+        console.log(questions[counter].answers[i]);
+        if(questions[counter].answers[i].value){
+            showingAnswers.append("<p class='answer' id='correct'>" + questions[counter].answers[i].answer +
+            "</p>");
+        }else{
+            showingAnswers.append("<p class='answer'>" + questions[counter].answers[i].answer +
+            "</p>");
+        }
+    }
+   
     $('.answers').html(showingAnswers);
 
     timerHolder();
