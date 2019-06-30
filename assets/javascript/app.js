@@ -144,7 +144,7 @@ function unanswered() {
     unansweredCounter++;
     $('.unanswered').html('<p>Unanswered questions: ' + unansweredCounter + '</p>');
     $('.main').append("<p class='times-up'>Time's up!</p>");
-    $('.right-answer').css('background-color', 'green');
+    $("#correct").attr('class', 'right-answer answer');
     $('.times-up')
         .delay(2000)
         .fadeOut(400);
